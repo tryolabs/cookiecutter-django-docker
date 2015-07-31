@@ -5,6 +5,7 @@ gunicorn:
     - "8000"
   environment:
     DO_COLLECTSTATIC: True
+    WAIT_FOR_PG: True
 
 nginx:
   build: deploy/docker/containers/nginx/
