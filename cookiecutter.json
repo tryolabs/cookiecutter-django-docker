@@ -1,0 +1,11 @@
+{
+    "repo_name": "django-docker",
+    "aws_vars_placeholder": "yes",
+    "postgresql_expose_port_local_dev": "yes",
+    "postgresql_port": "5432",
+    "postgresql_postgres_password": "pgsuperuserpassword",
+    "postgresql_app_user": "djangodocker",
+    "postgresql_app_user_password": "{{ cookiecutter.postgresql_app_user }}",
+    "postgresql_app_db_name": "{{ cookiecutter.postgresql_app_user }}",
+    "local_hosts_name": "{{ cookiecutter.repo_name }}.dev"
+}

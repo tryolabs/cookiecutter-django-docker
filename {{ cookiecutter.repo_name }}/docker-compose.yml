@@ -1,0 +1,39 @@
+#
+# For local development
+#
+
+postgres:
+  image: postgres
+{% if cookiecutter.postgresql_expose_port_local_dev|lower == 'yes' %}
+  ports:
+    - "{{ cookiecutter.postgresql_port }}:5432"
+{% endif %}
+  volumes:
+    - deploy/docker/containers/postgres/app_setup.sql:/docker-entrypoint-initdb.d/app_setup.sql
+  environment:
+    POSTGRES_PASSWORD: "{{ cookiecutter.postgresql_postgres_password }}"
+
+gunicorn:
+  extends:
+    file: docker-compose-common.yml
+    service: gunicorn
+  command: python manage.py runserver 0.0.0.0:8000
+  ports:
+    - "8000:8000"
+  volumes:
+    - django/:/django
+  links:
+    - "postgres:postgres"
+  env_file:
+    - deploy/docker/environments/dev/django.env
+
+nginx:
+  extends:
+    file: docker-compose-common.yml
+    service: nginx
+  links:
+    - "gunicorn:gunicorn"
+  volumes_from:
+    - gunicorn
+  env_file:
+    - deploy/docker/environments/dev/nginx.env

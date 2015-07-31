@@ -1,0 +1,1 @@
+See https://github.com/docker-library/docs/tree/master/postgres#how-to-extend-this-image

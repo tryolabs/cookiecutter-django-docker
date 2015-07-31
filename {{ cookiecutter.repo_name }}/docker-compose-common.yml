@@ -1,0 +1,12 @@
+gunicorn:
+  build: django/
+  hostname: gunicorn
+  expose:
+    - "8000"
+  environment:
+    DO_COLLECTSTATIC: True
+
+nginx:
+  build: deploy/docker/containers/nginx/
+  ports:
+    - "80:80"
