@@ -33,6 +33,8 @@ nginx:
     service: nginx
   links:
     - "gunicorn:gunicorn"
+  volumes:
+    - deploy/docker/containers/nginx/docker-entrypoint-init.d/:/docker-entrypoint-init.d/
   volumes_from:
     - gunicorn
   env_file:

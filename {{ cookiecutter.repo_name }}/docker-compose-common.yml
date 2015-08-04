@@ -8,6 +8,8 @@ gunicorn:
     WAIT_FOR_PG: True
 
 nginx:
-  build: deploy/docker/containers/nginx/
+  image: dekked/nginx-docker
   ports:
     - "80:80"
+  volumes:
+    - deploy/docker/containers/nginx/templates/:/templates
